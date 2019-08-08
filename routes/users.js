@@ -13,10 +13,9 @@ router.post('/register', (req, res) => {
     let errors = [];
     
     // Check required fields
-    if(!name || !email || !password || !password2){
-        errors.push({ msg: 'Please fill in all fields' });
-    }
-});
+if(!name || !email || !password || !password2){
+    errors.push({ msg: 'Please fill in all fields' });
+}
 
 // Check passwords match
 if(password !== password2){
@@ -25,8 +24,22 @@ if(password !== password2){
 
 // Check pass length
 if(password.length < 6){
-    errors.push( msg: 'Password should be at least 6 characters')
-};
+    errors.push({msg: 'Password should be at least 6 characters'})
+}
+// if true rerender the registration form/ saves the data when register button is pressed
+if(errors.length > 0){
+    res.render('register', {
+        errors,
+        name,
+        email,
+        password,
+        password2
+    })
+}
+else{
+    res.send('pass');
+}
 
+});
 // request and response objects are being received
 module.exports = router;
